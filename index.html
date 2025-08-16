@@ -3,26 +3,294 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My Profile</title>
+  <title>my profile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0b1020;
+      --card: rgba(255,255,255,0.06);
+      --muted: #9aa3b2;
+      --text: #e9edf5;
+      --brand: #7c9bff;
+      --brand-2: #62e0d9;
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0; padding:0; font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif; background: radial-gradient(1200px 800px at 90% -10%, #1a1f35 0, transparent 60%), linear-gradient(180deg, #0b1020, #0a0e1b); color:var(--text)}
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50; backdrop-filter:saturate(140%) blur(8px);
+      background: linear-gradient(180deg, rgba(13,18,37,.9), rgba(13,18,37,.65));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:18px 22px;}
+    .row{display:flex; align-items:center; gap:18px;}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.5px}
+    .brand .dot{width:12px; height:12px; border-radius:50%; background: linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow:0 0 18px var(--brand)}
+    nav{margin-left:auto; display:flex; flex-wrap:wrap; gap:8px}
+    nav a{
+      text-decoration:none; color:var(--text); font-weight:600; font-size:14px;
+      padding:10px 14px; border-radius:999px; border:1px solid rgba(255,255,255,.08);
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      box-shadow:var(--shadow); transition:all .25s ease;
+    }
+    nav a:hover{transform:translateY(-2px); border-color:rgba(255,255,255,.18)}
+    nav a.active{border-color:transparent; background:linear-gradient(135deg, rgba(124,155,255,.2), rgba(98,224,217,.2));}
+
+    /* Hero */
+    .hero{max-width:1100px; margin:26px auto; padding:0 22px; display:grid; grid-template-columns:120px 1fr; gap:20px; align-items:center}
+    .avatar{
+      width:120px; height:120px; border-radius:50%; overflow:hidden; border:2px solid rgba(255,255,255,.08); box-shadow:var(--shadow);
+      background:var(--card);
+    }
+    .avatar img{width:100%; height:100%; object-fit:cover; display:block}
+    .title h1{margin:0; font-size:34px; letter-spacing:.3px}
+    .title p{margin:6px 0 0; color:var(--muted)}
+
+    /* Section Cards */
+    .section{
+      max-width:1100px; margin:10px auto 40px; padding:0 22px; display:none;
+      animation:fade .35s ease;
+    }
+    .section.active{display:block}
+    @keyframes fade{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:translateY(0)}}
+
+    .card{background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); box-shadow:var(--shadow); padding:22px}
+    .card h2{margin:0 0 12px; font-size:22px}
+    .muted{color:var(--muted)}
+
+    /* Grid Gallery */
+    .grid{display:grid; gap:14px; grid-template-columns:repeat(4, 1fr)}
+    .tile{
+      aspect-ratio: 4/3; border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,.08);
+      background:var(--card); box-shadow:var(--shadow); position:relative
+    }
+    .tile img{width:100%; height:100%; object-fit:cover; display:block}
+    .tile .cap{position:absolute; left:10px; bottom:10px; padding:6px 10px; font-size:12px; border-radius:999px; background:rgba(0,0,0,.4); border:1px solid rgba(255,255,255,.14) }
+
+    /* Resume */
+    .resume{
+      display:grid; grid-template-columns:1.1fr .9fr; gap:18px
+    }
+    .resume .line{height:1px; background:linear-gradient(90deg, rgba(255,255,255,.12), rgba(255,255,255,0)); margin:10px 0 18px}
+    .btn{
+      display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(135deg, rgba(124,155,255,.14), rgba(98,224,217,.14)); text-decoration:none; color:var(--text); font-weight:700;
+      box-shadow:var(--shadow); transition:transform .2s ease
+    }
+    .btn:hover{transform:translateY(-2px)}
+
+    /* Footer */
+    footer{max-width:1100px; margin:40px auto 60px; padding:0 22px; color:var(--muted); font-size:13px}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .grid{grid-template-columns:repeat(2, 1fr)}
+      .resume{grid-template-columns:1fr}
+    }
+    @media (max-width: 560px){
+      .hero{grid-template-columns:80px 1fr}
+      .avatar{width:80px; height:80px}
+      nav{gap:6px}
+      nav a{padding:8px 12px; font-size:13px}
+    }
+  </style>
 </head>
-<body style="font-family: Arial; background:#f0f0f0; padding:20px;">
-  <h1>Hanza Muqaddas</h1>
-  <p>Frontend Developer • Graphic Designer</p>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="wrap row">
+      <div class="brand"><span class="dot"></span> My Profile</div>
+      <nav id="nav">
+        <a href="#" data-target="resume" class="active">Resume</a>
+        <a href="#" data-target="uiux">UI & UX Design</a>
+        <a href="#" data-target="thumbnails">Thumbnails</a>
+        <a href="#" data-target="posters">Posters</a>
+        <a href="#" data-target="logos">Logo</a>
+        <a href="#" data-target="videos">Videos</a>
+        <a href="#" data-target="flyers">Flyers</a>
+      </nav>
+    </div>
+  </header>
 
-  <h2>Profile Picture</h2>
-  <img src="images/sample.jpg" alt="Profile Picture" width="200">
+  <!-- Hero / Profile -->
+  <section class="hero">
+    <div class="avatar">
+      <!-- Replace the src with your image path inside the images/ folder -->
+      <img src="images/hanza.jpg" alt="Profile Picture" />
+    </div>
+    <div class="title">
+      <h1>Hanza Muqaddas</h1>
+      <p class="muted">Frontend Developer • Graphic Designer</p>
+    </div>
+  </section>
 
-  <h2>Resume</h2>
-  <a href="pdfs/resume.pdf" download>Download Resume (PDF)</a>
+  <!-- Resume Section -->
+  <section id="resume" class="section active">
+    <div class="card resume">
+      <div>
+        <h2>Professional Summary</h2>
+        <p class="muted">Creative and detail‑oriented designer & developer with hands‑on experience in responsive websites, mobile apps, and brand design for clients in arts, photography, design, and entertainment.</p>
+        <div class="line"></div>
+        <h3>Skills</h3>
+        <p>HTML, CSS, JavaScript, React Native, Android • Canva, Photoshop • UI/UX, Wireframing, Prototyping, Branding</p>
+        <div class="line"></div>
+        <h3>Experience</h3>
+        <ul>
+          <li><strong>Freelance Designer/Developer</strong> — Built landing pages, mobile app UIs, logos, posters, and social media creatives.</li>
+          <li><strong>Studio Collaborations</strong> — Worked with studios to deliver marketing assets and product visuals.</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <p>Email: hunzanasir1818@gmail.com<br>Phone: +92-302-6660065<br>Location: Adhi kot district khushab Tehsil nur pur thal County, PK</p>
+        <div class="line"></div>
+        <h3>Download</h3>
+        <!-- Replace href with your real CV file path. If you host the CV in the repo, put it in the root and link to /Resume.pdf -->
+        <a class="btn" href="file:///C:/Users/MNA/Downloads/images/White%20simple%20Sales%20Representative%20Cv%20Resume.pdf" download>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 3v10m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Download Resume (PDF)
+        </a>
+      </div>
+    </div>
+  </section>
 
-  <h2>UI/UX Design</h2>
-  <img src="images/sample.jpg" width="150">
+  <!-- UI/UX Section -->
+  <section id="uiux" class="section">
+    <div class="card">
+      <h2>UI & UX Design</h2>
+      <p class="muted">Wireframes, app screens, and web dashboards.</p>
+      <div class="grid">
+        <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/Screenshot_20240712-195441.jpg" alt="UIUX 1"><span class="cap">Mobile App UI</span></div>
+        <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/Screenshot_20241026-183847.jpg" alt="UIUX 2"><span class="cap">Dashboard</span></div>
+        <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/Screenshot_20240713-155838.jpg" alt="UIUX 3"><span class="cap">Wireframe</span></div>
+        <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/fristproject.jpg" alt="UIUX 4"><span class="cap">Prototype</span></div>
+      </div>
+    </div>
+  </section>
 
-  <h2>Video Sample</h2>
-  <video src="videos/sample.mp4" width="320" height="240" controls></video>
+  <!-- Thumbnails Section -->
+  <section id="thumbnails" class="section">
+    <div class="card">
+      <h2>Thumbnails</h2>
+      <p class="muted">YouTube / Social media thumbnails.</p>
+      <div class="grid">
+        <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/bodybuilder.jpg" alt="Thumbnail 1"><span class="cap">Tech Review</span></div>
+        <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/The_Final_24_Hours_of_Stanley_Tookie_Williams.jpg" alt="Thumbnail 2"><span class="cap">Tutorial</span></div>
+        <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/WhatsApp%20Image%202025-08-12%20at%209.08.30%20PM.jpeg" alt="Thumbnail 3"><span class="cap">Vlog</span></div>
+        <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/Colorful%20Cute%20Children%20Youtube%20Thumbnail.png" alt="Thumbnail 4"><span class="cap">Design Tips</span></div>
+        <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/WhatsApp%20Image%202025-08-13%20at%209.37.48%20PM.jpeg" alt="Thumbnail 5"><span class="cap">New Design</span></div>
+      <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/WhatsApp%20Image%202025-08-08%20at%209.28.53%20PM.jpeg" alt="Thumbnail 5"><span class="cap">New Design</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Posters Section -->
+  <section id="posters" class="section">
+    <div class="card">
+      <h2>Posters</h2>
+      <p class="muted">Event, promo and campaign posters.</p>
+      <div class="grid">
+        <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/Green%20Modern%20School%20Admission%20Flyer%20Portrait.png" alt="Poster 1"><span class="cap">Music Night</span></div>
+        <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/Black%20and%20Gold%20Elegant%20Graduation%20Party%20Poster.png" alt="Poster 2"><span class="cap">Art Expo</span></div>
+        <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/WhatsApp%20Image%202025-08-16%20at%202.05.37%20PM%20(1).jpeg" alt="Poster 3"><span class="cap">Sale</span></div>
+        <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/White%20And%20Yellow%20Vibrant%20Meet%20The%20Team%20Instagram%20Post.png" alt="Poster 4"><span class="cap">Conference</span></div>
+       <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/WhatsApp%20Image%202025-08-16%20at%202.05.38%20PM%20(1).jpeg" alt="Poster 5"><span class="cap">Result Card</span></div>
+    </div>
+    </div>
+  </section>
+
+  <!-- Logos Section -->
+  <section id="logos" class="section">
+    <div class="card">
+      <h2>Logos</h2>
+      <p class="muted">Brand marks and identity concepts.</p>
+      <div class="grid">
+        <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/Untitled%20design%20(4).png" alt="Logo 1"><span class="cap">Mark 01</span></div>
+        <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/Untitled%20design%20(3).png" alt="Logo 2"><span class="cap">Mark 02</span></div>
+        <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/Untitled%20design%20(1).png" alt="Logo 3"><span class="cap">Mark 03</span></div>
+        <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/Digital%20Creator.png" alt="Logo 4"><span class="cap">Mark 04</span></div>
+        <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/Untitled%20design%20(2).png" alt="Logo 5"><span class="cap">Mark 05</span></div>
+        <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/Untitled%20design.png" alt="Logo 6"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Videos Section -->
+  <section id="videos" class="section">
+    <div class="card">
+      <h2>Videos</h2>
+      <p class="muted">Showreels and motion clips.</p>
+      <div class="grid">
+        <div class="tile">
+          <video src="file:///C:/Users/MNA/Downloads/videos/Add%20a%20heading%20(1).mp4" controls poster="images/video1.jpg" style="width:100%; height:100%; object-fit:cover;"></video>
+          <span class="cap">Product Ad 01</span>
+        </div>
+        <div class="tile">
+          <video src="file:///C:/Users/MNA/Downloads/videos/Your%20paragraph%20text.mp4" controls poster="images/video2.jpg" style="width:100%; height:100%; object-fit:cover;"></video>
+          <span class="cap">Product Ad 02</span>
+        </div>
+        <div class="tile">
+          <video src="file:///C:/Users/MNA/Downloads/videos/Untitled%20design.mp4" controls poster="images/video3.jpg" style="width:100%; height:100%; object-fit:cover;"></video>
+          <span class="cap">Product Ad 03</span>
+        </div>
+        <div class="tile">
+          <video src="file:///C:/Users/MNA/Downloads/videos/YOUTUBE.mp4" controls poster="images/video4.jpg" style="width:100%; height:100%; object-fit:cover;"></video>
+          <span class="cap">Ad 04</span>
+        </div>
+        <div class="tile">
+          <video src="file:///C:/Users/MNA/Downloads/videos/Screen_Recording_20241026_095533.mp4" controls poster="images/showreel.jpg" style="width:100%; height:100%; object-fit:cover;"></video>
+          <span class="cap">App design 01</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flyers Section -->
+  <section id="flyers" class="section">
+    <div class="card">
+      <h2>Flyers</h2>
+      <p class="muted">Print and digital flyers.</p>
+      <div class="grid">
+        <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/Untitled-1.jpg" alt="Flyer 1"><span class="cap">Flyer 01</span></div>
+        <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/physics1.jpg" alt="Flyer 2"><span class="cap">Flyer 02</span></div>
+        <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/WhatsApp%20Image%202025-08-16%20at%202.05.38%20PM.jpeg" alt="Flyer 3"><span class="cap">Flyer 03</span></div>
+        <div class="tile"><img src="file:///C:/Users/MNA/Downloads/images/WhatsApp%20Image%202025-08-16%20at%202.05.37%20PM.jpeg" alt="Flyer 4"><span class="cap">Flyer 04</span></div>
+      </div>
+    </div>
+  </section>
 
   <footer>
-    <p>© 2025 Hanza Muqaddas — Portfolio</p>
+    © <span id="year"></span> Hanza Muqaddas — Portfolio
   </footer>
+
+  <script>
+    // Tab switching
+    const nav = document.getElementById('nav');
+    const sections = document.querySelectorAll('.section');
+    nav.addEventListener('click', (e)=>{
+      const link = e.target.closest('a');
+      if(!link) return;
+      e.preventDefault();
+      const target = link.dataset.target;
+      // set active link
+      nav.querySelectorAll('a').forEach(a=>a.classList.toggle('active', a===link));
+      // show only target section
+      sections.forEach(sec=>{
+        sec.classList.toggle('active', sec.id === target);
+        if(sec.id === target){
+          sec.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      });
+    });
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
